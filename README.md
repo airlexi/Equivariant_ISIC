@@ -1,1 +1,0 @@
-# Equivariant_ISIC
