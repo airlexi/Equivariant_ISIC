@@ -1,4 +1,4 @@
-#Equivariant_ISIC
+# Equivariant_ISIC
 ## The SIIM-ISIC Melanoma Classification Challenge
 The goal of the SIIM-ISIC Challenge is identifying Melanoma in lesion images. It is a binary classification problem and the model needs to output the probability between 0.0 and 1.0. The value 0.0 accounts for benign and 1.0 for malignant. The training dataset consists of 33125 images, of which 32542 are benign and 584 malignant. In addition to the images, meta-data is provided in .csv-files, consisting of:
 * image_name - unique identifier, points to filename of related DICOM image
