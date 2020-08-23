@@ -24,4 +24,21 @@ This leads to the conclusion, that using rotation equivariant networks for the S
 
 Paper: https://arxiv.org/pdf/1911.08251.pdf
 
-## 
+## Experiments
+### Data Augmentation
+In their paper "Data Augmentation for Skin Lesiona Analysis", Perez, Vasconcelos et al. carried out different experiments looking for the best augmentations for skin lesion analysis. Results show, the best augmentation are in the following order:
+* Random Crops
+* Affine Transformations (rotating, sheering and scaling images)
+* Flips
+* Saturation, Contrast, Brightness and Hue changes (saturation, contrast and brightness modification sampled from an uniform distribution of (0.7, 1.3), hue shifted by a value sampled from an uniform distribution between (-0.1,0.1))
+
+This experiment focuses on usage of rotation equivariant networks. Flips and rotations of input images can be neglected, since the output would be the same. Furthermore, hair augmentation is experimented with as well, since a huge amount of input images have lots of hairs in the image.
+
+### Architecture
+Last years challenge was dominated mostly by ensembles of pretrained DenseNets, EfficientNets, ResNets and SeResNexts. Experiments were carried out on DenseNet121, DenseNet161, ResNet50 and Resnet101, since the other nets include operations which cannot be carried out with the e2cnn-library (e.g. swish-function: output = x * sigmoid(x)). 
+
+### External Data
+It was also experimented with the usage of external data, namely the data from the ISIC-2019 challenge to reduce the class imbalance. ISIC-2019 data had about 4000 malignant samples, which should be beneficial for learning the the malignant class.
+
+### Post-processing
+For getting the final predictions, heavy test time augmentation is used, as proposed in "Data Augmentation for Skin Lesiona Analysis".
