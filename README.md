@@ -15,7 +15,7 @@ It is possible to participate in two ways in this challenge. You can either part
 ![SAMPLE1](./ReadmeFiles/DataStruct.png)
 > Figure 1. Example Image of the Dataset
 
-The dataset with input sizes 1024x1024 can be downloaded at https://www.kaggle.com/c/siim-isic-melanoma-classification/data. Chris Deotte provides resized datasets here: https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/164092.
+The dataset with input sizes 1024x1024 can be downloaded at https://www.kaggle.com/c/siim-isic-melanoma-classification/data. Chris Deotte provides alread resized datasets here, to avoid huge downloads see here: https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/164092.
 
 ## Goal
 The aim of the project is to show that using General E(2)-Equivariant Steerable CNNs for skin lesion analysis is beneficial. Li, Yu et al. already demonstrated the effectiveness of using rotation equivariant networks for skin lesion segmentation in their paper: "Deeply Supervised Rotation Equivariant Network for Lesion Segmentation in Dermoscopy Images". This leads to the conclusion, that using rotation equivariant networks for the SIIM-ISIC 2020 challenge would be also beneficial.
@@ -36,11 +36,11 @@ In their paper "Data Augmentation for Skin Lesiona Analysis", Perez, Vasconcelos
 * Flips
 * Saturation, Contrast, Brightness and Hue changes (saturation, contrast and brightness modification sampled from an uniform distribution of (0.7, 1.3), hue shifted by a value sampled from an uniform distribution between (-0.1,0.1))
 
-This experiment focuses on usage of rotation equivariant networks. Flips and rotations of input images can be neglected, since the output would be the same. Furthermore, hair augmentation is experimented with as well, since a huge amount of input images have lots of hairs in the image.
+This experiment focuses on usage of rotation equivariant networks. Flips and rotations of input images can be neglected, since the output would be the same. Furthermore, hair augmentation is experimented with as well, since a huge amount of input images have lots of hairs in the image (created by: https://www.kaggle.com/nroman/melanoma-pytorch-starter-efficientnet).
 
-Furthermore, since lots of images are taken through a microscope lense, I have tested microscope augmentation.
+Furthermore, since lots of images are taken through a microscope lense, I have tested microscope augmentation, in which black circles are added to input images, to make them appear as they have been taken through a microscope lense (created by: https://www.kaggle.com/nroman/melanoma-pytorch-starter-efficientnet).
 
-I have also carried out experiments using the exact same augmentations as the top-performing team in the competition.
+Other augmentations which were tested include adding noise and blur to the images as well as cutout, in which holes are randomly added to the input images.
 
 ### Architecture
 Last years challenge was dominated mostly by ensembles of pretrained DenseNets, EfficientNets, ResNets and SeResNexts. Experiments were carried out on DenseNet121, DenseNet161 (https://arxiv.org/abs/1608.06993), ResNet50 and Resnet101 (https://arxiv.org/abs/1512.03385), since the other nets include operations which cannot be carried out with the e2cnn-library (e.g. swish-function: output = x * sigmoid(x)). I experimented with using meta-data and not using meta-data.
@@ -63,9 +63,11 @@ As a starting learning rate, I used a learning rate of 0.001. Furthermore, the l
 ## Results
 The leading submissions on the final leaderboard were ensembles of mostly pretrained EfficientNets. The best AUC score on the final leaderboard was 0.9490. 
 
-My best performing equivariant model scored an AUC of 0.8659 on the private leaderboard. It used the augmentations proposed by Perez, Vasconcelos et al., the architecture is Densenet121 using meta-data, no external data, random folds. Input size of 256 x 256 worked better than 224 x 224.
+My best performing equivariant model scored an AUC of 0.8659 on the private leaderboard. It used the augmentations proposed by Perez, Vasconcelos et al., the architecture is Densenet121 using meta-data, no external data, random folds. Input size of 256 x 256 was used.
 
 This is not a great score, all of the models I tested were able to achieve a score of ca. 0.86 on the leaderboard, but none was able to perform better. There was no significant difference between deeper models like Resnet101 or Densenet161 and Resnet50 and Densenet121. It is yet to find out why there is such a huge difference between these equivariant models and the pretrained models used by others which were performing much better on the leaderboard. Furthermore, there is the question, why does making models more complex not improve their performance in this case? In theory, they should perform definitely better. One person achieved a score of 0.90 on public leaderboard with just a Resnet18, which is a much smaller network than for example Resnet50 (https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/155668). One user, who used on Resnet50, achieved a score of 0.9203 training without external data (https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/171745). Still, the equivariant Resnet50 does not get a better score than 0.86.
+
+When using 2019s data to increase the amount of malignant samples, the AUC score of cross-validation sky-rockets to ~ 0.96 but it does not increase the score on the final submission. The samples are apparently of a slightly different distribution which makes it easy for the models to classify them. 
 
 ## Code example
 To run the script:
@@ -77,9 +79,9 @@ python isic_train.py
 Since the challenge ended on August 17th and the semester is over and my exchange semester is soon to begin, I stopped working on the project.
 
 ## To-dos
-Depending on the interest in the challenge, it could be evaluated, why the rotation equivariant networks do not yield better results in this challenge, although Li, Yu et al. showed benefits of using them in the 2017 ISIC challenge.
+Late submissions are still possible. Depending on the interest in the challenge, it could be evaluated, why the rotation equivariant networks do not yield better results in this challenge, although Li, Yu et al. showed benefits of using them in the 2017 ISIC challenge. To do this, Vladimir suggests to interpolate between non-rotation-equivariant architectures which perform well and ours. We could gradually modify them to move towards ours to see what modification affects the quality.
 
-Vladimir suggests to interpolate between non-rotation-equivariant architectures which perform well and ours. We could gradually modify them to move towards ours to see what modification affects the quality.
+Furthermore, the best performing submissions used 2018s data. It can be evaluated if it yields better results.
 
 ## Citation
 The Pytorch extension which is used was created by:
