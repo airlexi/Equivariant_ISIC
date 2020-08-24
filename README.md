@@ -43,7 +43,7 @@ Furthermore, since lots of images are taken through a microscope lense, I have t
 I have also carried out experiments with the exact augmentations of the top-performing team in the competition.
 
 ### Architecture
-Last years challenge was dominated mostly by ensembles of pretrained DenseNets, EfficientNets, ResNets and SeResNexts. Experiments were carried out on DenseNet121, DenseNet161, ResNet50 and Resnet101, since the other nets include operations which cannot be carried out with the e2cnn-library (e.g. swish-function: output = x * sigmoid(x)). I experimented with using meta-data and not using meta-data.
+Last years challenge was dominated mostly by ensembles of pretrained DenseNets, EfficientNets, ResNets and SeResNexts. Experiments were carried out on DenseNet121, DenseNet161 (https://arxiv.org/abs/1608.06993), ResNet50 and Resnet101 (https://arxiv.org/abs/1512.03385), since the other nets include operations which cannot be carried out with the e2cnn-library (e.g. swish-function: output = x * sigmoid(x)). I experimented with using meta-data and not using meta-data.
 
 ### External Data
 It was also experimented with the usage of external data, namely the data from the ISIC-2019 challenge to reduce the class imbalance. ISIC-2019 data had about 4000 malignant samples, which should be beneficial for learning the the malignant class.
@@ -61,6 +61,14 @@ For getting the final predictions, heavy test time augmentation is used, as prop
 As a starting learning rate, I used a learning rate of 0.001. Furthermore, the learning rate reduces on plateaus by a factor of 0.2, with a patience of 1. I have also implemented early stopping, to prevent overfitting.
 
 ## Results
-The leading submissions on the final leaderboard were ensembles of mostly pretrained EfficientNets. The best AUC score on the final leaderboard was 0.9490. My best performing equivariant model scored an AUC of 0.8659 on the private leaderboard. It used the augmentations proposed by Perez, Vasconcelos et al., and was a Densenet121 using meta-data, no external data, random folds.
+The leading submissions on the final leaderboard were ensembles of mostly pretrained EfficientNets. The best AUC score on the final leaderboard was 0.9490. My best performing equivariant model scored an AUC of 0.8659 on the private leaderboard. It used the augmentations proposed by Perez, Vasconcelos et al., the architecture is Densenet121 using meta-data, no external data, random folds.
 
 This is not a great score, all of the models I tested were able to achieve a score of ca. 0.86 on the leaderboard, but none was able to perform better. There was no significant difference between deeper models like Resnet101 or Densenet161 and Resnet50 and Densenet121. It is yet to find out why there is such a huge difference between these equivariant models and the pretrained models used by others which were performing much better on the leaderboard. Furthermore, there is the question, why does making models more complex not improve their performance in this case? In theory, they should perform definitely better. One person achieved a score of 0.90 on public leaderboard with just a Resnet18, which is a much smaller network than for example Resnet50 (https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/155668). One user, who used on Resnet50, achieved a score of 0.9203 training without external data (https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/171745). Still, the equivariant Resnet50 does not get a better score than 0.86.
+
+## Status
+Since the challenge ended on August 17th and the semester is over, I stopped working on the project.
+
+## To-dos
+Depending on the interest in the challenge, it could be evaluated, why the rotation equivariant networks do not yield better results in this challenge, although Li, Yu et al. showed benefits of using them in the 2017 ISIC challenge.
+
+## Cite
