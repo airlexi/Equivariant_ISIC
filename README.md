@@ -92,7 +92,7 @@ Since the challenge ended on August 17th and the semester is over and my exchang
 ## To-dos
 Late submissions are still possible. Depending on the interest in the challenge, it could be evaluated, why the rotation equivariant networks do not yield better results in this challenge, although Li, Yu et al. showed benefits of using them in the 2017 ISIC challenge. To do this, Vladimir suggests to interpolate between non-rotation-equivariant architectures which perform well and ours. We could gradually modify them to move towards ours to see what modification affects the quality.
 
-Furthermore, the best performing submissions used 2018s data. It can be evaluated if it yields better results.
+Furthermore, some of the best performing submissions used 2018s data instead of 2019s. It can be evaluated if it yields better results for us.
 
 ## Citation
 The Pytorch extension which is used was created by:
