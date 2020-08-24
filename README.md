@@ -18,7 +18,7 @@ It is possible to participate in two ways in this challenge. You can either part
 ![SAMPLE2](./ReadmeFiles/ISIC_0000002.jpg)
 > Figure 2. malignant sample of the Dataset
 
-The dataset with input sizes 1024x1024 can be downloaded at https://www.kaggle.com/c/siim-isic-melanoma-classification/data. Chris Deotte provides alread resized datasets here, to avoid huge downloads see here: https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/164092.
+The dataset with input sizes 1024x1024 can be downloaded at https://www.kaggle.com/c/siim-isic-melanoma-classification/data. Chris Deotte provides alread resized datasets to avoid huge downloads, see here: https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/164092.
 
 ## Goal
 The aim of the project is to show that using General E(2)-Equivariant Steerable CNNs for skin lesion analysis is beneficial. Li, Yu et al. already demonstrated the effectiveness of using rotation equivariant networks for skin lesion segmentation in their paper: "Deeply Supervised Rotation Equivariant Network for Lesion Segmentation in Dermoscopy Images". This leads to the conclusion, that using rotation equivariant networks for the SIIM-ISIC 2020 challenge would be also beneficial.
