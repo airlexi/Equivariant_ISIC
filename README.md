@@ -12,8 +12,11 @@ The goal of the SIIM-ISIC Challenge is identifying Melanoma in lesion images. It
 
 It is possible to participate in two ways in this challenge. You can either participate with models using meta-data and with models which classify the data solely based on the images, without the usage of meta-data. The evaluation metric is the area under the ROC curve between the predicted probability and the observed target.
 
-![SAMPLE1](./ReadmeFiles/DataStruct.png)
-> Figure 1. Example Image of the Dataset
+![SAMPLE1](./ReadmeFiles/ISIC_9999806.jpg)
+> Figure 1. beningn sample of the Dataset
+
+![SAMPLE2](./ReadmeFiles/ISIC_0000002.jpg)
+> Figure 2. malignant sample of the Dataset
 
 The dataset with input sizes 1024x1024 can be downloaded at https://www.kaggle.com/c/siim-isic-melanoma-classification/data. Chris Deotte provides alread resized datasets here, to avoid huge downloads see here: https://www.kaggle.com/c/siim-isic-melanoma-classification/discussion/164092.
 
@@ -36,9 +39,17 @@ In their paper "Data Augmentation for Skin Lesiona Analysis", Perez, Vasconcelos
 * Flips
 * Saturation, Contrast, Brightness and Hue changes (saturation, contrast and brightness modification sampled from an uniform distribution of (0.7, 1.3), hue shifted by a value sampled from an uniform distribution between (-0.1,0.1))
 
-This experiment focuses on usage of rotation equivariant networks. Flips and rotations of input images can be neglected, since the output would be the same. Furthermore, hair augmentation is experimented with as well, since a huge amount of input images have lots of hairs in the image (created by: https://www.kaggle.com/nroman/melanoma-pytorch-starter-efficientnet).
+This experiment focuses on usage of rotation equivariant networks. Flips and rotations of input images can be neglected, since the output would be the same. 
+
+I also tested hair augmentation, since a huge amount of input images have lots of hairs on the skin (created by: https://www.kaggle.com/nroman/melanoma-pytorch-starter-efficientnet).
+
+![SAMPLE3](./ReadmeFiles/ISIC_0031023.jpg)
+> Figure 3. example for a hairy image 
 
 Furthermore, since lots of images are taken through a microscope lense, I have tested microscope augmentation, in which black circles are added to input images, to make them appear as they have been taken through a microscope lense (created by: https://www.kaggle.com/nroman/melanoma-pytorch-starter-efficientnet).
+
+![SAMPLE4](./ReadmeFiles/ISIC_0000004.jpg)
+> Figure 4. example for an image taken through a microscope
 
 Other augmentations which were tested include adding noise and blur to the images as well as cutout, in which holes are randomly added to the input images.
 
