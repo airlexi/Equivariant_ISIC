@@ -354,25 +354,25 @@ class ResNet(torch.nn.Module):
         
         layer1 = []
         layer1.append(ResBlock(stride=2, in_type = reg_field64, inner_type = reg_field64, out_type = reg_field256, dropout_rate=p_drop))
-        for i in range(list_layer[0]):
+        for i in range(list_layer[0]-1):
             layer1.append(ResBlock(stride=1, in_type = reg_field256, inner_type = reg_field64, out_type = reg_field256, dropout_rate=p_drop))
         self.layer1 = torch.nn.Sequential(*layer1)
         
         layer2 = []
         layer2.append(ResBlock(stride=2, in_type = reg_field256, inner_type = reg_field128, out_type = reg_field512, dropout_rate=p_drop))
-        for i in range(list_layer[1]):
+        for i in range(list_layer[1]-1):
             layer2.append(ResBlock(stride=1, in_type = reg_field512, inner_type = reg_field128, out_type = reg_field512, dropout_rate=p_drop))
         self.layer2 = torch.nn.Sequential(*layer2)
         
         layer3 = []
         layer3.append(ResBlock(stride=2, in_type = reg_field512, inner_type = reg_field256, out_type = reg_field1024, dropout_rate=p_drop))
-        for i in range(list_layer[2]):
+        for i in range(list_layer[2]-1):
             layer3.append(ResBlock(stride=1, in_type = reg_field1024, inner_type = reg_field256, out_type = reg_field1024,dropout_rate=p_drop))
         self.layer3 = torch.nn.Sequential(*layer3)
         
         layer4 = []
         layer4.append(ResBlock(stride=2, in_type = reg_field1024, inner_type = reg_field512, out_type = reg_field2048, dropout_rate=p_drop))
-        for i in range(list_layer[3]):
+        for i in range(list_layer[3]-1):
             layer4.append(ResBlock(stride=1, in_type = reg_field2048, inner_type = reg_field512, out_type = reg_field2048, dropout_rate=p_drop))
         self.layer4 = torch.nn.Sequential(*layer4)
         
@@ -433,7 +433,7 @@ class BasicConv2d(enn.EquivariantModule):
     
     
 class Inception3(torch.nn.Module):
-
+   """ Implementation of InceptionV3-Net (https://arxiv.org/abs/1512.00567), usage of meta-data is not implemented"""
     def __init__(self, num_classes=1, aux_logits=False, 
                  inception_blocks=None):
         super(Inception3, self).__init__()
