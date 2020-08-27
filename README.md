@@ -54,7 +54,7 @@ Furthermore, since lots of images are taken through a microscope lense, I have t
 Other augmentations which were tested include adding noise and blur to the images as well as cutout, in which holes are randomly added to the input images.
 
 ### Architecture
-Last years challenge was dominated mostly by ensembles of pretrained DenseNets, EfficientNets, ResNets and SeResNexts. Experiments were carried out on DenseNet121, DenseNet161 (https://arxiv.org/abs/1608.06993), ResNet50 and Resnet101 (https://arxiv.org/abs/1512.03385), since the other nets include operations which cannot be carried out with the e2cnn-library (e.g. swish-function: output = x * sigmoid(x)). I experimented with using meta-data and not using meta-data.
+Last years challenge was dominated mostly by ensembles of pretrained DenseNets, EfficientNets, ResNets and SeResNexts. Experiments were carried out on DenseNet121, DenseNet161 (https://arxiv.org/abs/1608.06993), ResNet50 and Resnet101 (https://arxiv.org/abs/1512.03385) and InceptionV3 (https://arxiv.org/pdf/1512.00567.pdf), since the other nets include operations which cannot be carried out with the e2cnn-library (e.g. swish-function: output = x * sigmoid(x)). I experimented with using meta-data and not using meta-data.
 
 ### External Data
 It was also experimented with the usage of external data, namely the data from the ISIC-2019 challenge to reduce the class imbalance. ISIC-2019 data had about 4000 malignant samples, which should be beneficial for learning the the malignant class.
