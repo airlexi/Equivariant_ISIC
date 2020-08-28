@@ -368,7 +368,7 @@ if __name__ == "__main__":
 
     # data augmentation for training
     train_transform = transforms.Compose([
-        AdvancedHairAugmentation(hairs_folder='mel_hairs'),
+        AdvancedHairAugmentation(hairs_folder='melanoma_hairs'),
         transforms.RandomResizedCrop(size=256, scale=(0.8, 1.0)),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
