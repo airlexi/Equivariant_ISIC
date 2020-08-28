@@ -268,7 +268,7 @@ def fit(max_epochs, patience, batch_size):
         
         #setting the optimizer and learning rate scheduler
         optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-        lr_scheduler = ReduceLROnPlateau(optimizer=optimizer, mode='min', patience=1, verbose=True, factor=0.1)
+        lr_scheduler = ReduceLROnPlateau(optimizer=optimizer, mode='min', patience=1, verbose=True, factor=0.2)
         
         #getting the indices for the respective train-validation split
         train_data = train_df.iloc[train_idx].reset_index(drop=True)
