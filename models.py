@@ -1044,7 +1044,7 @@ class BasicBlock_C(enn.EquivariantModule):
     
 class ResNeXt(torch.nn.Module):
     """implementation of equivariant ResneXt Network (https://arxiv.org/abs/1611.05431), adapted from: https://github.com/Hsuxu/ResNeXt"""
-    def __init__(self, num_blocks, cardinality, bottleneck_width, expansion=2, num_classes=1):
+    def __init__(self, num_blocks, cardinality, bottleneck_width, expansion=2, n_meta_features=0):
         super(ResNeXt, self).__init__()
         self.gspace = gspaces.Rot2dOnR2(N=4)
         self.cardinality = cardinality
@@ -1059,12 +1059,22 @@ class ResNeXt(torch.nn.Module):
         self.layer2=self._make_layer(num_blocks[1],2)
         self.layer3=self._make_layer(num_blocks[2],2)
         self.layer4=self._make_layer(num_blocks[3],2)
-        self.linear = nn.Linear(self.cardinality * self.bottleneck_width, num_classes)
+        self.linear = nn.Linear(self.cardinality * self.bottleneck_width, 500)
         
         self.relu = enn.ReLU(FIELD_TYPE["regular"](self.gspace, 64, fixparams=False))
-        
+        #this part consists of fully connected layers to fit the one-hot encoded meta-data
+        self.meta = torch.nn.Sequential(torch.nn.Linear(n_meta_features, 500),
+                                  torch.nn.BatchNorm1d(500),
+                                  torch.nn.ReLU(),
+                                  torch.nn.Dropout(p=0.2),
+                                  torch.nn.Linear(500, 250),  # FC layer output will have 250 features
+                                  torch.nn.BatchNorm1d(250),
+                                  torch.nn.ReLU(),
+                                  torch.nn.Dropout(p=0.2))
+        self.output = torch.nn.Linear(500+250,1)
         
     def forward(self, x):
+        x, meta = x
         x = enn.GeometricTensor(x, enn.FieldType(self.gspace, 3*[self.gspace.trivial_repr]))
         out = self.conv0(x)
         out = self.bn0(out)
@@ -1078,7 +1088,10 @@ class ResNeXt(torch.nn.Module):
         out = F.avg_pool2d(out, 4)
         out = out.view(out.size(0), -1)
         out = self.linear(out)
-        return out
+        meta_features = self.meta(meta)
+        features = torch.cat((out, meta_features), dim=1)
+        output = self.output(features)
+        return output
 
     def _make_layer(self, num_blocks, stride):
         strides = [stride] + [1] * (num_blocks - 1)
